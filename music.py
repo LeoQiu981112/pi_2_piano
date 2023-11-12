@@ -1,5 +1,5 @@
 from scamp import *
-
+from utils import pi_digits
 session = Session()
 
 
@@ -22,3 +22,9 @@ session.wait(30)
 
 performance = session.stop_transcribing()
 performance.to_score(QuantizationScheme.from_time_signature("3/4", 16)).show_xml()
+
+# extract every digit from pie and print it, first 100 digits
+digits = [n for n in list(pi_digits(10))]
+# print first 10 digits one by one
+for d in digits:
+    print(d)    
