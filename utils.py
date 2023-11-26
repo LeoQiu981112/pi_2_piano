@@ -12,3 +12,20 @@ def pi_digits(x):
             x -= 1
             a,a1 = 10*(a % b), 10*(a1 % b1)
             d,d1 = a/b, a1/b1
+
+
+def find_closest_next_note(last_note: float, current_digit: int, scale):
+    current_note = scale[current_digit]
+    if abs(current_note - last_note) <= 6.:
+        return current_note
+
+    # 1-7 
+    # cur_note 1-7
+    # previous 0,8,9
+
+    if current_note > last_note:
+        current_note -= int( (current_note - last_note + 6)/12 ) * 12.
+        return current_note
+
+    current_note += int( (last_note - current_note + 6)/12 ) * 12.
+    return current_note
