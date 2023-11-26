@@ -1,6 +1,7 @@
 from scamp import *
 from utils import pi_digits, find_closest_next_note
 from scamp_extensions.pitch import Scale
+from random import choice
 
 # session = Session()
 
@@ -26,8 +27,8 @@ from scamp_extensions.pitch import Scale
 
 
 # -----digits stuff-------------------------------------------------------------------
-# # extract every digit from pie and print it, first 100 digits
-# digits = [n for n in list(pi_digits(10))]
+# extract every digit from pie and print it, first 100 digits
+digits = [n for n in list(pi_digits(20))]
 # # print first 10 digits one by one
 # for d in digits:
 #     print(d)    
@@ -46,11 +47,42 @@ print(my_scale)
 # digits = [Scale.major(start_pitch+i*4) for i in range(10)]
 
 # create map that takes digit and returns [my_scale[digit]+i*12 for i in range(-5,5)] for each digit as value in map
-digit_map = {digit : [my_scale[digit]+(i)*12-2 for i in range(-5,5)] for digit in range(1,10)}
+# digit_map = {digit : [my_scale[digit]+(i)*12-2 for i in range(-5,5)] for digit in range(1,10)}
 
-print(digit_map)
+# print(digit_map)
+music_sheet = [60.]
+
+held_digit = -1
+for digit in digits:
+    if len(music_sheet) == 0:
+        pass
     
+    if held_digit != -1:
+        if held_digit == 8:
+            pass
+        else:
+            pass
+        held_digit = -1
+        
+    
+    elif digit == 0:
+        music_sheet.append(music_sheet[-1])
+        held_note = -1
+        
+    elif digit <= 7:
+        music_sheet.append(
+            find_closest_next_note(music_sheet[-1], digit, my_scale)
+            )
+        held_note = -1
+    
+    else:
+        held_digit = digit
 
+print(music_sheet)
+
+for note in music_sheet[1:]:
+    tempos = [0.125, 0.25, 0.5]
+    my_piano.play_note(note, 1.0, choice(tempos))
 
 # cur_note,last_note = -1,-1
 # for digit in digits:
